@@ -5,20 +5,26 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { createStore } from 'redux';
 import counter from './reducers'
+import { Provider } from 'react-redux';
+import rootReducer from './reducers';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 
-const store = createStore(counter)
+const store = createStore(rootReducer)
+
 const render = () => root.render(
   <React.StrictMode>
-    <Provider
-    <App 
-      value={store.getState()}
-      onIncrement={() => store.dispatch({type: "INCREMENT"})} 
-      onDecrement={() => store.dispatch({type: "DECREMENT"})}
-    />
+    {/* provider로 둘러싸서 store 사용  */}
+    {/* npm install react-redux --save */}
+    <Provider store={store}>
+      <App 
+        value={store.getState()}
+        onIncrement={() => store.dispatch({type: "INCREMENT"})} 
+        onDecrement={() => store.dispatch({type: "DECREMENT"})}
+        />
+    </Provider>
   </React.StrictMode>
 );
 
